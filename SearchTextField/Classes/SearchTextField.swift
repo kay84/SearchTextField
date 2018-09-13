@@ -28,6 +28,12 @@ open class SearchTextField: UITextField {
     /// How long to wait before deciding typing has stopped
     open var typingStoppedDelay = 0.8
     
+    /// Show / Hide delete button
+    open var showDeleteButton = true
+    
+    /// Closure that is called when the delete button is pressed
+    open var onDelete = {(index: Int) -> () in }
+    
     /// Set your custom visual theme, or just choose between pre-defined SearchTextFieldTheme.lightTheme() and SearchTextFieldTheme.darkTheme() themes
     open var theme = SearchTextFieldTheme.lightTheme() {
         didSet {
@@ -269,6 +275,7 @@ open class SearchTextField: UITextField {
         }
         
         if let tableView = tableView {
+            
             guard let frame = self.superview?.convert(self.frame, to: nil) else { return }
             
             //TableViews use estimated cell heights to calculate content size until they
@@ -561,11 +568,25 @@ extension SearchTextField: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    @objc public func deleteEntry(sender: UIButton) {
+        onDelete(sender.tag)
+    }
+    
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: SearchTextField.cellIdentifier)
         
         if cell == nil {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: SearchTextField.cellIdentifier)
+        }
+        
+        if showDeleteButton {
+            let deleteButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: theme.cellHeight))
+            deleteButton.titleLabel?.font = theme.deleteButtonFont
+            deleteButton.setTitle(theme.deleteButtonTitle, for: .normal)
+            deleteButton.setTitleColor(theme.deleteButtonColor, for: .normal)
+            deleteButton.tag = indexPath.row
+            deleteButton.addTarget(self, action: #selector(SearchTextField.deleteEntry), for: .touchUpInside)
+            cell!.accessoryView = deleteButton
         }
         
         cell!.backgroundColor = UIColor.clear
@@ -617,8 +638,11 @@ public struct SearchTextFieldTheme {
     public var fontColor: UIColor
     public var subtitleFontColor: UIColor
     public var placeholderColor: UIColor?
+    public var deleteButtonFont: UIFont
+    public var deleteButtonColor: UIColor
+    public var deleteButtonTitle: String
     
-    init(cellHeight: CGFloat, bgColor:UIColor, borderColor: UIColor, separatorColor: UIColor, font: UIFont, fontColor: UIColor, subtitleFontColor: UIColor? = nil) {
+    init(cellHeight: CGFloat, bgColor:UIColor, borderColor: UIColor, separatorColor: UIColor, font: UIFont, fontColor: UIColor, subtitleFontColor: UIColor? = nil, deleteButtonTitle deleteText:String = "Delete", deleteButtonFont delFont:UIFont, deleteButtonColor delColor:UIColor) {
         self.cellHeight = cellHeight
         self.borderColor = borderColor
         self.separatorColor = separatorColor
@@ -626,14 +650,33 @@ public struct SearchTextFieldTheme {
         self.font = font
         self.fontColor = fontColor
         self.subtitleFontColor = subtitleFontColor ?? fontColor
+        self.deleteButtonTitle = deleteText
+        self.deleteButtonFont = delFont
+        self.deleteButtonColor = delColor
     }
     
     public static func lightTheme() -> SearchTextFieldTheme {
-        return SearchTextFieldTheme(cellHeight: 30, bgColor: UIColor (red: 1, green: 1, blue: 1, alpha: 0.6), borderColor: UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0), separatorColor: UIColor.clear, font: UIFont.systemFont(ofSize: 10), fontColor: UIColor.black)
+        return SearchTextFieldTheme(
+            cellHeight: 30,
+            bgColor: UIColor (red: 1, green: 1, blue: 1, alpha: 0.6),
+            borderColor: UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0),
+            separatorColor: UIColor.clear, font: UIFont.systemFont(ofSize: 10),
+            fontColor: UIColor.black,
+            deleteButtonFont: UIFont.systemFont(ofSize: 10),
+            deleteButtonColor: UIColor.red
+        )
     }
     
     public static func darkTheme() -> SearchTextFieldTheme {
-        return SearchTextFieldTheme(cellHeight: 30, bgColor: UIColor (red: 0.8, green: 0.8, blue: 0.8, alpha: 0.6), borderColor: UIColor (red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0), separatorColor: UIColor.clear, font: UIFont.systemFont(ofSize: 10), fontColor: UIColor.white)
+        return SearchTextFieldTheme(
+            cellHeight: 30,
+            bgColor: UIColor (red: 0.8, green: 0.8, blue: 0.8, alpha: 0.6),
+            borderColor: UIColor (red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0),
+            separatorColor: UIColor.clear, font: UIFont.systemFont(ofSize: 10),
+            fontColor: UIColor.white,
+            deleteButtonFont: UIFont.systemFont(ofSize: 10),
+            deleteButtonColor: UIColor.white
+        )
     }
 }
 

@@ -7,18 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6A905DA6214AB49B00191AA6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A905DA5214AB49B00191AA6 /* Info.plist */; };
-		6A905DAD214AB4F000191AA6 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 6A905DA9214AB4F000191AA6 /* .gitkeep */; };
+		6A72AE7821944AB000008F78 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A905DA5214AB49B00191AA6 /* Info.plist */; };
 		6A905DAE214AB4F000191AA6 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A905DAA214AB4F000191AA6 /* SearchTextField.swift */; };
-		6A905DAF214AB4F000191AA6 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 6A905DAC214AB4F000191AA6 /* .gitkeep */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6A905D9A214AB40700191AA6 /* SearchTextField.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SearchTextField.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A905DA5214AB49B00191AA6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6A905DA9214AB4F000191AA6 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		6A905DAA214AB4F000191AA6 /* SearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
-		6A905DAC214AB4F000191AA6 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +57,6 @@
 		6A905DA8214AB4F000191AA6 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				6A905DA9214AB4F000191AA6 /* .gitkeep */,
 				6A905DAA214AB4F000191AA6 /* SearchTextField.swift */,
 			);
 			path = Classes;
@@ -70,7 +65,6 @@
 		6A905DAB214AB4F000191AA6 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				6A905DAC214AB4F000191AA6 /* .gitkeep */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -142,9 +136,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A905DAF214AB4F000191AA6 /* .gitkeep in Resources */,
-				6A905DA6214AB49B00191AA6 /* Info.plist in Resources */,
-				6A905DAD214AB4F000191AA6 /* .gitkeep in Resources */,
+				6A72AE7821944AB000008F78 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

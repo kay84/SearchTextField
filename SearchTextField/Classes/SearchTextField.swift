@@ -534,7 +534,7 @@ open class SearchTextField: UITextField {
     
     // MARK: - Prepare for draw table result
     
-    fileprivate func prepareDrawTableResult() {
+    public func prepareDrawTableResult() {
         guard let frame = self.superview?.convert(self.frame, to: UIApplication.shared.keyWindow) else { return }
         if let keyboardFrame = keyboardFrame {
             var newFrame = frame

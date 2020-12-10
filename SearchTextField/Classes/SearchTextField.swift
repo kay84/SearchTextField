@@ -35,7 +35,7 @@ open class SearchTextField: UITextField {
     open var onDelete = {(index: Int) -> () in }
     
     /// Set your custom visual theme, or just choose between pre-defined SearchTextFieldTheme.lightTheme() and SearchTextFieldTheme.darkTheme() themes
-    open var theme = SearchTextFieldTheme.lightTheme() {
+    open var theme = SearchTextFieldTheme.darkTheme() {
         didSet {
             tableView?.reloadData()
             
@@ -343,7 +343,7 @@ open class SearchTextField: UITextField {
     @objc open func keyboardWillShow(_ notification: Notification) {
         if !keyboardIsShowing && isEditing {
             keyboardIsShowing = true
-            keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+            keyboardFrame = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
             interactedWith = true
             prepareDrawTableResult()
         }
@@ -359,7 +359,7 @@ open class SearchTextField: UITextField {
     
     @objc open func keyboardDidChangeFrame(_ notification: Notification) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-            self?.keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            self?.keyboardFrame = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
             self?.prepareDrawTableResult()
         }
     }
@@ -658,25 +658,27 @@ public struct SearchTextFieldTheme {
     
     public static func lightTheme() -> SearchTextFieldTheme {
         return SearchTextFieldTheme(
-            cellHeight: 30,
+            cellHeight: 50,
             bgColor: UIColor (red: 1, green: 1, blue: 1, alpha: 0.6),
             borderColor: UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0),
-            separatorColor: UIColor.clear, font: UIFont.systemFont(ofSize: 10),
+            separatorColor: UIColor.black,
+            font: UIFont.systemFont(ofSize: 16),
             fontColor: UIColor.black,
-            deleteButtonFont: UIFont.systemFont(ofSize: 10),
+            deleteButtonFont: UIFont.systemFont(ofSize: 16),
             deleteButtonColor: UIColor.red
         )
     }
     
     public static func darkTheme() -> SearchTextFieldTheme {
         return SearchTextFieldTheme(
-            cellHeight: 30,
-            bgColor: UIColor (red: 0.8, green: 0.8, blue: 0.8, alpha: 0.6),
+            cellHeight: 50,
+            bgColor: UIColor (red: 0.8, green: 0.8, blue: 0.8, alpha: 0.7),
             borderColor: UIColor (red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0),
-            separatorColor: UIColor.clear, font: UIFont.systemFont(ofSize: 10),
-            fontColor: UIColor.white,
-            deleteButtonFont: UIFont.systemFont(ofSize: 10),
-            deleteButtonColor: UIColor.white
+            separatorColor: UIColor.white,
+            font: UIFont.systemFont(ofSize: 16),
+            fontColor: UIColor.black,
+            deleteButtonFont: UIFont.systemFont(ofSize: 16),
+            deleteButtonColor: UIColor.red
         )
     }
 }
